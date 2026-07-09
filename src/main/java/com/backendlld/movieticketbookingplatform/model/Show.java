@@ -3,11 +3,15 @@ package com.backendlld.movieticketbookingplatform.model;
 import com.backendlld.movieticketbookingplatform.model.Enums.Features;
 import com.backendlld.movieticketbookingplatform.model.Enums.Languages;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@Getter
+@Setter
+@Entity(name = "Shows")
 public class Show extends BaseModel{
     @ManyToOne
     private Movie movie;
