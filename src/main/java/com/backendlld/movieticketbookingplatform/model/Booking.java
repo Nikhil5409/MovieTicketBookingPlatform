@@ -13,6 +13,7 @@ import java.util.List;
 @Entity
 public class Booking extends BaseModel{
     private Date bookingDate;
+    private Date holdExpiresAt;
     private int noOfSeats;
     @ManyToOne
     private User bookedBy;

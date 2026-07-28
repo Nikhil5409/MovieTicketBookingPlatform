@@ -12,6 +12,7 @@ import com.backendlld.movieticketbookingplatform.repository.ShowSeatRepository;
 import com.backendlld.movieticketbookingplatform.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -24,6 +25,9 @@ public class BookingService {
     private UserRepository userRepository;
     private ShowSeatRepository showSeatRepository;
     private BookingRepository bookingRepository;
+
+    @Value("${booking.hold-duration-minutes:10}")
+    private long holdDurationMinutes;
 
     @Autowired
     public BookingService(ShowRepository showRepository, UserRepository userRepository, ShowSeatRepository showSeatRepository, BookingRepository bookingRepository) {
@@ -64,9 +68,11 @@ public class BookingService {
         }
         showSeatRepository.saveAll(showSeats);
         // 6. create the booking
+        Date now = new Date();
         Booking booking = new Booking();
         booking.setBookedBy(user);
-        booking.setBookingDate(new Date());
+        booking.setBookingDate(now);
+        booking.setHoldExpiresAt(new Date(now.getTime() + holdDurationMinutes * 60_000));
         booking.setBookedSeats(showSeats);
         booking.setBookingStatus(BookingStatus.PENDING);
         //get seatTypes
