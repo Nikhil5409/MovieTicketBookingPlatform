@@ -6,6 +6,8 @@ import com.backendlld.movieticketbookingplatform.model.Enums.ShowSeatStatus;
 import com.backendlld.movieticketbookingplatform.model.Show;
 import com.backendlld.movieticketbookingplatform.model.ShowSeat;
 import com.backendlld.movieticketbookingplatform.model.User;
+import com.backendlld.movieticketbookingplatform.exception.SeatsNotAvailableException;
+import com.backendlld.movieticketbookingplatform.exception.ShowNotFoundException;
 import com.backendlld.movieticketbookingplatform.repository.BookingRepository;
 import com.backendlld.movieticketbookingplatform.repository.ShowRepository;
 import com.backendlld.movieticketbookingplatform.repository.ShowSeatRepository;
@@ -53,13 +55,13 @@ public class BookingService {
         // 2. get show from db
         Optional<Show> showOptional = showRepository.findById(showId);
         if(showOptional.isEmpty()){
-            throw new RuntimeException("No such show");
+            throw new ShowNotFoundException("No such show with id " + showId);
         }
         Show show = showOptional.get();
         // 3. get seats from db
         List<ShowSeat> showSeats = showSeatRepository.findAllByIdInAndStatus(showSeatIds, ShowSeatStatus.AVAILABLE);
         if(showSeats.size()<showSeatIds.size()){
-            throw new RuntimeException("Certain seats are not available");
+            throw new SeatsNotAvailableException("Certain seats are not available");
         }
         // 4. check if all seats are available
         // 5. If Yes, block the seats
