@@ -10,6 +10,7 @@ import com.backendlld.movieticketbookingplatform.repository.BookingRepository;
 import com.backendlld.movieticketbookingplatform.repository.ShowRepository;
 import com.backendlld.movieticketbookingplatform.repository.ShowSeatRepository;
 import com.backendlld.movieticketbookingplatform.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,7 @@ public class BookingService {
          this.showSeatRepository = showSeatRepository;
          this.bookingRepository = bookingRepository;
     }
+    @Transactional()
     public Booking bookTicket(Long showId, Long userId, List<Long> showSeatIds){
         // 1. get user from db
         Optional<User> userOptional = userRepository.findById(userId);
