@@ -13,6 +13,7 @@ import java.util.List;
 public class Screen extends BaseModel{
     private String name;
     @OneToMany
+    @JoinColumn(name="screen_id")
     private List<Seat> seats;
     @Enumerated
     @ElementCollection

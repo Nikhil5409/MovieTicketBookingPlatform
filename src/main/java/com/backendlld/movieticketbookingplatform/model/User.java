@@ -15,6 +15,6 @@ import java.util.List;
 public class User extends BaseModel {
     private String username;
     private String email;
-    @OneToMany
+    @OneToMany(mappedBy = "bookedBy")
     private List<Booking> bookings;
 }

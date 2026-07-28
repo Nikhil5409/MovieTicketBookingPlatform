@@ -51,7 +51,7 @@ public class BookingService {
         }
         Show show = showOptional.get();
         // 3. get seats from db
-        List<ShowSeat> showSeats = showSeatRepository.findAllByIdAndStatus(showSeatIds, ShowSeatStatus.AVAILABLE);
+        List<ShowSeat> showSeats = showSeatRepository.findAllByIdInAndStatus(showSeatIds, ShowSeatStatus.AVAILABLE);
         if(showSeats.size()<showSeatIds.size()){
             throw new RuntimeException("Certain seats are not available");
         }

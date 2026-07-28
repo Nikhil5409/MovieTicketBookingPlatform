@@ -20,7 +20,7 @@ public class Booking extends BaseModel{
     @ManyToMany
     private List<ShowSeat> bookedSeats;
     // ManyToMany coz in future we may support cancellations, then showSeat can be present in many bookings
-    @OneToMany
+    @OneToMany(mappedBy = "booking")
     private List<Payment> payments;
     @Enumerated(EnumType.STRING)
     private BookingStatus bookingStatus;

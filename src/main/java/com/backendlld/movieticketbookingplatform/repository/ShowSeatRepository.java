@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface ShowSeatRepository extends JpaRepository<ShowSeat, Long> {
-    List<ShowSeat> findAllByIdAndStatus( Iterable<Long> ids, ShowSeatStatus status);
+    List<ShowSeat> findAllByIdInAndStatus(Iterable<Long> ids, ShowSeatStatus status);
 }
